@@ -10,6 +10,7 @@
 #endif
 #include "ozone/ui/events/event_factory_ozone_wayland.h"
 #include "ozone/ui/ime/input_method_context_factory_wayland.h"
+#include "ui/ozone/ime/input_method_context_factory_ozone.h"
 #include "ozone/wayland/display.h"
 #include "ozone/wayland/proxy_display.h"
 #include "ui/base/cursor/ozone/cursor_factory_ozone.h"
@@ -37,6 +38,12 @@ class OzonePlatformWayland : public OzonePlatform {
   virtual EventFactoryOzone* GetEventFactoryOzone() OVERRIDE {
     return event_factory_ozone_.get();
   }
+
+  virtual InputMethodContextFactoryOzone* GetInputMethodContextFactoryOzone()
+      OVERRIDE {
+    return &input_method_context_factory_ozone_;
+  }
+
   virtual CursorFactoryOzone* GetCursorFactoryOzone() OVERRIDE {
     return cursor_factory_ozone_.get();
   }
@@ -72,6 +79,8 @@ class OzonePlatformWayland : public OzonePlatform {
   scoped_ptr<ui::EventFactoryOzoneWayland> event_factory_ozone_;
   scoped_ptr<ui::CursorFactoryOzoneWayland> cursor_factory_ozone_;
   scoped_ptr<ozonewayland::WaylandDisplay> wayland_display_;
+  InputMethodContextFactoryOzone input_method_context_factory_ozone_;
+
   DISALLOW_COPY_AND_ASSIGN(OzonePlatformWayland);
 };
 
